@@ -11,8 +11,8 @@ withDefaults(defineProps<Props>(), { noPad: false, emphasis: false })
 <template>
   <section
     :class="[
-      'rounded-2xl border border-line block-shadow',
-      emphasis ? 'bg-brand text-primary-foreground border-transparent' : 'bg-card',
+      'rounded-xl border block-shadow',
+      emphasis ? 'border-brand/30 bg-brand-12/40' : 'border-line bg-card',
     ]"
   >
     <header
@@ -22,12 +22,8 @@ withDefaults(defineProps<Props>(), { noPad: false, emphasis: false })
     >
       <slot name="header">
         <div>
-          <h3 class="text-[16px] font-bold leading-tight" :class="emphasis ? 'text-primary-foreground' : 'text-ink'">
-            {{ title }}
-          </h3>
-          <p v-if="subtitle" class="mt-0.5 text-[12.5px]" :class="emphasis ? 'text-primary-foreground/80' : 'text-muted-foreground'">
-            {{ subtitle }}
-          </p>
+          <h3 class="text-[14px] font-semibold leading-tight text-ink">{{ title }}</h3>
+          <p v-if="subtitle" class="mt-0.5 text-[12px] text-muted-foreground">{{ subtitle }}</p>
         </div>
       </slot>
       <slot name="action" />
