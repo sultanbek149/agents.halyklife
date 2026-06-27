@@ -8,7 +8,7 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/tailwind.css'],
 
-  modules: ['shadcn-nuxt'],
+  modules: ['@pinia/nuxt', 'shadcn-nuxt'],
 
   shadcn: {
     prefix: 'Ui',

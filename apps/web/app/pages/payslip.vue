@@ -41,8 +41,8 @@ function download() {
         <p class="mt-1 text-2xl font-extrabold tabular-nums text-ink">{{ formatMoney(groupTotal) }}</p>
       </SectionCard>
       <SectionCard emphasis>
-        <p class="text-[12.5px] text-primary-foreground/80">Итого к выплате</p>
-        <p class="mt-1 text-2xl font-extrabold tabular-nums text-primary-foreground">{{ formatMoney(grandTotal) }}</p>
+        <p class="text-[12.5px] text-muted-foreground">Итого к выплате</p>
+        <p class="mt-1 text-2xl font-bold tabular-nums text-brand">{{ formatMoney(grandTotal) }}</p>
       </SectionCard>
     </div>
 

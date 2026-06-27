@@ -1,19 +1,28 @@
-export type Theme = 'light' | 'dark'
+import type { Theme } from '~/stores/ui'
 
-/** Тема интерфейса. По умолчанию — чёрная (как в ../agents). Сохраняется в localStorage. */
+/** Тонкая обёртка над Pinia-стором UI (тема). По умолчанию — чёрная. Тип Theme — из ~/stores/ui. */
 export function useTheme() {
-  const theme = useState<Theme>('theme', () => 'dark')
+  const store = useUiStore()
+  const { theme } = storeToRefs(store)
 
+  /** Мгновенно — для инициализации при загрузке. */
   function apply(value: Theme) {
-    theme.value = value
-    if (import.meta.client) {
-      document.documentElement.classList.toggle('dark', value === 'dark')
-      localStorage.setItem('theme', value)
+    store.setTheme(value)
+  }
+
+  /** Плавное переключение в обе стороны — кроссфейд через View Transitions API. */
+  function toggle() {
+    const next: Theme = store.theme === 'dark' ? 'light' : 'dark'
+    const reduce =
+      import.meta.client && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    // @ts-expect-error — startViewTransition есть не во всех браузерах
+    if (import.meta.client && !reduce && document.startViewTransition) {
+      // @ts-expect-error
+      document.startViewTransition(() => store.setTheme(next))
+    } else {
+      store.setTheme(next)
     }
   }
-  function toggle() {
-    apply(theme.value === 'dark' ? 'light' : 'dark')
-  }
 
-  return { theme, apply, toggle }
+  return { theme, apply, set: store.setTheme, toggle }
 }

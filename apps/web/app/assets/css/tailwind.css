@@ -250,3 +250,16 @@
   .animate-hl-fade { animation: hl-fade .4s ease both; }
   .animate-hl-slidein { animation: hl-slidein .28s ease both; }
 }
+
+/* Плавное переключение темы (кроссфейд всей страницы), в обе стороны */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.35s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}

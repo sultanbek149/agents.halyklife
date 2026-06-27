@@ -45,12 +45,12 @@ const barColor = (p: number) => (p >= 80 ? '#2aa65c' : p >= 50 ? '#E0A21B' : '#D
       <div class="flex items-center gap-4">
         <InitialsAvatar :name="tree.name" :size="48" />
         <div>
-          <p class="text-[16px] font-extrabold text-white">{{ tree.name }}</p>
-          <p class="text-[12.5px] text-white/85">{{ tree.level }} уровень · Куратор · {{ tree.agentNo }}</p>
+          <p class="text-[15px] font-bold text-ink">{{ tree.name }}</p>
+          <p class="text-[12.5px] text-muted-foreground">{{ tree.level }} уровень · Куратор · {{ tree.agentNo }}</p>
         </div>
         <div class="ml-auto text-right">
-          <p class="text-[12px] text-white/80">Факт ветки</p>
-          <p class="text-[18px] font-extrabold tabular-nums text-white">{{ formatMoney(tree.fact) }}</p>
+          <p class="text-[11.5px] text-muted-foreground">Факт ветки</p>
+          <p class="text-[18px] font-bold tabular-nums text-brand">{{ formatMoney(tree.fact) }}</p>
         </div>
       </div>
     </SectionCard>

@@ -1,9 +1,6 @@
-/** Состояние мобильного бокового меню (drawer). */
+/** Тонкая обёртка над Pinia-стором UI (мобильное меню). */
 export function useSidebar() {
-  const open = useState('sidebar-open', () => false)
-  return {
-    open,
-    toggle: () => (open.value = !open.value),
-    close: () => (open.value = false),
-  }
+  const store = useUiStore()
+  const { sidebarOpen: open } = storeToRefs(store)
+  return { open, toggle: store.toggleSidebar, close: store.closeSidebar }
 }
