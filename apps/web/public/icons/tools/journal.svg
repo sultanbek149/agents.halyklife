@@ -1,0 +1,12 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="list">
+<g id="list_2">
+<path id="Shape" d="M8 6H20" stroke="#2AA65C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Shape_2" d="M8 12H20" stroke="#2AA65C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Shape_3" opacity="0.5" d="M8 18H20" stroke="#2AA65C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Oval 2" opacity="0.5" d="M4 17.5C4.27614 17.5 4.5 17.7239 4.5 18C4.5 18.2761 4.27614 18.5 4 18.5C3.72386 18.5 3.5 18.2761 3.5 18C3.5 17.7239 3.72386 17.5 4 17.5Z" stroke="#2AA65C"/>
+<path id="Oval 2_2" d="M4 11.5C4.27614 11.5 4.5 11.7239 4.5 12C4.5 12.2761 4.27614 12.5 4 12.5C3.72386 12.5 3.5 12.2761 3.5 12C3.5 11.7239 3.72386 11.5 4 11.5Z" stroke="#2AA65C"/>
+<path id="Oval 2_3" d="M4 5.5C4.27614 5.5 4.5 5.72386 4.5 6C4.5 6.27614 4.27614 6.5 4 6.5C3.72386 6.5 3.5 6.27614 3.5 6C3.5 5.72386 3.72386 5.5 4 5.5Z" stroke="#2AA65C"/>
+</g>
+</g>
+</svg>

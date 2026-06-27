@@ -1,0 +1,18 @@
+{
+  "name": "agents-new",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Кабинет агента Halyk Life — новый фронтенд (Nuxt 3 + shadcn-vue + Turborepo)",
+  "packageManager": "pnpm@10.20.0",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "generate": "turbo run generate",
+    "preview": "turbo run preview",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.5"
+  }
+}

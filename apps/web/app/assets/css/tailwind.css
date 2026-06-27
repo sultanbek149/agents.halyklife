@@ -1,0 +1,249 @@
+/* Halyk Life — Кабинет агента. Дизайн-токены взяты из проекта ../agents */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap&subset=cyrillic,cyrillic-ext,latin');
+
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn-vue/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: 'Noto Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-heading: var(--font-sans);
+  --font-mono: ui-monospace, 'SF Mono', 'Menlo', monospace;
+
+  /* shadcn semantic tokens */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Halyk brand + status palette (used across cabinet screens) */
+  --color-brand: var(--brand);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-12: var(--brand-12);
+  --color-brand-20: var(--brand-20);
+  --color-ink: var(--ink);
+  --color-soft: var(--soft);
+  --color-line: var(--line);
+  --color-gold: var(--gold);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-strong: var(--warning-strong);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+  --color-purple: var(--purple);
+  --color-purple-soft: var(--purple-soft);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  /* surfaces */
+  --background: #f4f6f5;
+  --foreground: #16211d;
+  --card: #ffffff;
+  --card-foreground: #16211d;
+  --popover: #ffffff;
+  --popover-foreground: #16211d;
+
+  /* brand (Halyk green from ../agents) */
+  --primary: #2aa65c;
+  --primary-foreground: #ffffff;
+
+  --secondary: #eef3f0;
+  --secondary-foreground: #566681;
+
+  --muted: #eef3f0;
+  --muted-foreground: #6e7c76;
+
+  --accent: #e8f7ee;
+  --accent-foreground: #00533d;
+
+  --destructive: #e5484d;
+  --destructive-foreground: #ffffff;
+
+  --border: rgba(120, 130, 128, 0.18);
+  --input: rgba(120, 130, 128, 0.22);
+  --ring: rgba(42, 166, 92, 0.45);
+
+  /* greenish chart ramp */
+  --chart-1: #2aa65c;
+  --chart-2: #13a074;
+  --chart-3: #00533d;
+  --chart-4: #8fd2ab;
+  --chart-5: #f2b23d;
+
+  /* sidebar */
+  --sidebar: #ffffff;
+  --sidebar-foreground: #16211d;
+  --sidebar-primary: #2aa65c;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e8f7ee;
+  --sidebar-accent-foreground: #00533d;
+  --sidebar-border: rgba(120, 130, 128, 0.14);
+  --sidebar-ring: rgba(42, 166, 92, 0.4);
+
+  /* Halyk brand + status systems (from ../agents tokens, aligned to the mockup) */
+  --brand: #2aa65c;
+  --brand-ink: #00533d;
+  --brand-12: #e8f7ee;
+  --brand-20: #d4e8df;
+  --ink: #16211d;
+  --soft: #eef3f0;
+  --line: rgba(120, 130, 128, 0.18);
+  --gold: #f2b23d;
+
+  --success: #2aa65c;
+  --success-soft: #e8f7ee;
+  --warning: #c98a00;
+  --warning-strong: #e0a106;
+  --warning-soft: #fff6e5;
+  --danger: #e5484d;
+  --danger-soft: #fff0f0;
+  --info: #2a6fb0;
+  --info-soft: #e7eff7;
+  --amber: #a87514;
+  --amber-soft: #fbf1dd;
+  --purple: #9b3b8c;
+  --purple-soft: #f4e6f2;
+}
+
+/* Чёрная тема — токены из ../agents (html.dark) */
+.dark {
+  --background: #0f1419;
+  --foreground: #e7ecf3;
+  --card: #1a2230;
+  --card-foreground: #e7ecf3;
+  --popover: #1a2230;
+  --popover-foreground: #e7ecf3;
+  --primary: #2aa65c;
+  --primary-foreground: #ffffff;
+  --secondary: #232c3b;
+  --secondary-foreground: #94a3b8;
+  --muted: #232c3b;
+  --muted-foreground: #94a3b8;
+  --accent: #18352a;
+  --accent-foreground: #8fd2ab;
+  --destructive: #f2666b;
+  --destructive-foreground: #ffffff;
+  --border: rgba(148, 163, 184, 0.2);
+  --input: rgba(148, 163, 184, 0.24);
+  --ring: rgba(42, 166, 92, 0.55);
+  --sidebar: #1a2230;
+  --sidebar-foreground: #e7ecf3;
+  --sidebar-primary: #2aa65c;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #18352a;
+  --sidebar-accent-foreground: #8fd2ab;
+  --sidebar-border: rgba(148, 163, 184, 0.16);
+
+  /* бренд + статусные системы (тёмные варианты) */
+  --brand: #2aa65c;
+  --brand-ink: #8fd2ab;
+  --brand-12: #18352a;
+  --brand-20: #1f3a2d;
+  --ink: #e7ecf3;
+  --soft: #232c3b;
+  --line: rgba(148, 163, 184, 0.2);
+  --gold: #f2b23d;
+
+  --success: #2aa65c;
+  --success-soft: rgba(42, 166, 92, 0.2);
+  --warning: #e3b341;
+  --warning-strong: #e0a106;
+  --warning-soft: rgba(224, 161, 6, 0.18);
+  --danger: #f2666b;
+  --danger-soft: rgba(229, 72, 77, 0.18);
+  --info: #6fa8dc;
+  --info-soft: rgba(42, 111, 176, 0.22);
+  --amber: #d9a441;
+  --amber-soft: rgba(168, 117, 20, 0.22);
+  --purple: #c98ac0;
+  --purple-soft: rgba(155, 59, 140, 0.22);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #cfdad4;
+    border-radius: 8px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  :where(.dark) ::-webkit-scrollbar-thumb {
+    background: #2b3a4a;
+  }
+}
+
+@layer utilities {
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+  .block-shadow {
+    box-shadow: 0 1px 2px rgba(16, 40, 32, 0.04), 0 8px 24px -16px rgba(16, 40, 32, 0.18);
+  }
+  @keyframes hl-fade {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes hl-slidein {
+    from { opacity: 0; transform: translateY(16px) scale(.985); }
+    to { opacity: 1; transform: none; }
+  }
+  .animate-hl-fade { animation: hl-fade .4s ease both; }
+  .animate-hl-slidein { animation: hl-slidein .28s ease both; }
+}

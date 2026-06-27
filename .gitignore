@@ -1,0 +1,25 @@
+# dependencies
+node_modules
+.pnpm-store
+
+# nuxt / build
+.nuxt
+.output
+.turbo
+dist
+.data
+
+# logs
+*.log
+logs
+
+# env
+.env
+.env.*
+!.env.example
+
+# misc
+.DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json
