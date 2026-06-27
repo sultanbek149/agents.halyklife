@@ -4,22 +4,23 @@ import { createApi } from './createApi';
 
 let axiosController = new AbortController();
 
+// Запросы идут через серверный прокси /api/gw (тот же origin → без CORS),
+// Nitro форвардит их на шлюз agent-service с пробросом Authorization/Accept-Language.
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
-  headers: {
-    Authorization: `Bearer ${localStorage['token']}`,
-  },
+  baseURL: '/api/gw',
 });
 
 axiosInstance.interceptors.request.use(config => {
-  const token = localStorage['token'];
-  const source = localStorage['source'] || 'mobile';
-  const language = localStorage['language'] || 'KAZ';
+  const ls = typeof window !== 'undefined' ? window.localStorage : undefined;
+  const token = ls?.getItem('token');
+  const source = ls?.getItem('source') || 'web';
+  const language = ls?.getItem('language') || 'RUS';
 
   if (token) config.headers.Authorization = `Bearer ${token}`;
 
   config.signal = axiosController.signal;
   config.headers.Language = language;
+  config.headers['Accept-Language'] = language === 'KAZ' ? 'kk' : 'ru';
   // Default the app-wide `source`, but let a call set its own — e.g.
   // `downloadJobFile` needs `source=report|subrep`, and `searchAgent` passes its
   // own channel. Spreading config.params last lets an explicit value win.

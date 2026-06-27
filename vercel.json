@@ -1,9 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "pnpm install",
-  "buildCommand": "pnpm --filter @agents-new/web run generate",
-  "outputDirectory": "apps/web/.output/public",
-  "rewrites": [
-    { "source": "/((?!_nuxt/|img/|icons/|.*\\.).*)", "destination": "/index.html" }
-  ]
+  "buildCommand": "pnpm --filter @agents-new/web build && rm -rf .vercel/output && cp -r apps/web/.vercel/output .vercel/output"
 }

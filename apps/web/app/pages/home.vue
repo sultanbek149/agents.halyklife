@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { Plus } from '@lucide/vue'
 import { kpi, todayItems, tasks, notifications, quickActions, structureStats, taskStatusLabel, taskStatusTone } from '~/data/demo'
+import { agentServiceApi } from '~/api'
 import { formatMoney, clampPct } from '~/lib/format'
 const { t } = useLang()
 const { me } = useCabinet()
+
+// Боевые данные (через прокси /api/gw). Нет токена/ошибка → демо-фолбэк.
+const { data: dash } = useApiResource(async () => (await agentServiceApi.getDashboard()).data, null as any)
+const { data: analytics } = useApiResource(async () => (await agentServiceApi.getCabinetAnalytics()).data, null as any)
 
 const overdue = tasks.filter((x) => x.status === 'overdue').length
 const todayTasks = tasks.filter((x) => ['new', 'overdue', 'progress'].includes(x.status)).slice(0, 3)
@@ -13,12 +18,24 @@ const counts = {
   progress: tasks.filter((x) => x.status === 'progress').length,
 }
 
+// Выполнение плана — боевое из /dashboard, иначе демо
+const kpiView = computed(() => {
+  const k = dash.value?.kpi
+  if (k) {
+    const fact = parseFloat(k.fact) || 0
+    const plan = parseFloat(k.plan) || 0
+    return { pct: Math.round(k.percentDone || 0), fact: k.fact, plan: k.plan, left: Math.max(0, plan - fact), period: kpi.period, delta: kpi.delta }
+  }
+  return { pct: kpi.pct, fact: kpi.fact, plan: kpi.plan, left: 4500000 - 3180000, period: kpi.period, delta: kpi.delta }
+})
+const overdueCount = computed(() => analytics.value?.overdue?.overdueTasks ?? overdue)
+
 // Метрики верхней панели
-const metrics = [
-  { label: 'Полисов за месяц', value: '33', tone: 'ink' },
+const metrics = computed(() => [
+  { label: 'Полисов за месяц', value: dash.value ? dash.value.policiesThisMonth : '33', tone: 'ink' },
   { label: 'Агентов в ветке', value: structureStats.agents, tone: 'ink' },
-  { label: 'Просрочки', value: overdue, tone: overdue ? 'danger' : 'ink' },
-]
+  { label: 'Просрочки', value: overdueCount.value, tone: overdueCount.value ? 'danger' : 'ink' },
+])
 
 // Тон акцентов для «Требует внимания»
 const accent: Record<string, { bar: string; chip: string }> = {
@@ -45,16 +62,16 @@ const accent: Record<string, { bar: string; chip: string }> = {
       <div class="rounded-xl border border-line bg-card p-5 block-shadow">
         <div class="flex items-center justify-between">
           <p class="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Выполнение плана</p>
-          <span class="inline-flex items-center gap-1 rounded-md bg-success-soft px-1.5 py-0.5 text-[11.5px] font-semibold text-brand tabular-nums">▲ {{ kpi.delta }}</span>
+          <span class="inline-flex items-center gap-1 rounded-md bg-success-soft px-1.5 py-0.5 text-[11.5px] font-semibold text-brand tabular-nums">▲ {{ kpiView.delta }}</span>
         </div>
         <div class="mt-2 flex items-baseline gap-3">
-          <span class="text-[34px] font-bold leading-none tracking-tight text-ink tabular-nums">{{ kpi.pct }}%</span>
-          <span class="text-[13px] text-muted-foreground tabular-nums">{{ formatMoney(kpi.fact) }} <span class="text-muted-foreground/60">из</span> {{ formatMoney(kpi.plan) }}</span>
+          <span class="text-[34px] font-bold leading-none tracking-tight text-ink tabular-nums">{{ kpiView.pct }}%</span>
+          <span class="text-[13px] text-muted-foreground tabular-nums">{{ formatMoney(kpiView.fact) }} <span class="text-muted-foreground/60">из</span> {{ formatMoney(kpiView.plan) }}</span>
         </div>
         <div class="mt-3 h-2 w-full overflow-hidden rounded-full bg-soft">
-          <div class="h-full rounded-full bg-brand" :style="{ width: `${clampPct(kpi.pct)}%` }" />
+          <div class="h-full rounded-full bg-brand" :style="{ width: `${clampPct(kpiView.pct)}%` }" />
         </div>
-        <p class="mt-2 text-[12px] text-muted-foreground">До плана осталось <b class="text-ink tabular-nums">{{ formatMoney(4500000 - 3180000) }}</b></p>
+        <p class="mt-2 text-[12px] text-muted-foreground">До плана осталось <b class="text-ink tabular-nums">{{ formatMoney(kpiView.left) }}</b></p>
       </div>
 
       <!-- Метрики -->

@@ -2,6 +2,14 @@
 import { ArrowRight, Check } from '@lucide/vue'
 definePageMeta({ layout: 'blank' })
 const { t, lang, setLang } = useLang()
+const { setToken, isAuthed } = useAuth()
+const route = useRoute()
+
+const token = ref('')
+onMounted(() => {
+  const q = route.query.token
+  if (typeof q === 'string' && q) token.value = q
+})
 
 const points = [
   'Структура ветки 1–9 уровней и заработок по ВНД-19-04',
@@ -9,6 +17,7 @@ const points = [
   'Задачи, делегирование и распознавание платежей',
 ]
 function enter() {
+  if (token.value.trim()) setToken(token.value)
   navigateTo('/home')
 }
 </script>
@@ -45,7 +54,23 @@ function enter() {
         </li>
       </ul>
 
-      <UiButton size="lg" class="mt-8 h-12 gap-2 rounded-xl px-6 text-[15px] font-bold shadow-[0_8px_22px_rgba(42,166,92,.28)]" @click="enter">
+      <!-- Токен агента (опционально: пусто → демо-данные, токен → боевые) -->
+      <div class="mt-6">
+        <label class="mb-1.5 flex items-center gap-1.5 text-[12px] font-semibold text-muted-foreground">
+          JWT-токен агента <span class="font-normal text-muted-foreground/70">— опционально, для боевых данных</span>
+        </label>
+        <textarea
+          v-model="token"
+          rows="2"
+          placeholder="eyJhbGciOi…  (пусто = демо-данные)"
+          class="w-full resize-none rounded-xl border border-line bg-card px-3 py-2 font-mono text-[11px] leading-snug outline-none focus:border-brand/40 focus:ring-2 focus:ring-ring"
+        />
+        <p v-if="isAuthed && !token" class="mt-1.5 flex items-center gap-1 text-[12px] font-medium text-brand">
+          <Check :size="13" /> токен сохранён — кабинет на боевых данных
+        </p>
+      </div>
+
+      <UiButton size="lg" class="mt-5 h-12 gap-2 rounded-xl px-6 text-[15px] font-bold shadow-[0_8px_22px_rgba(42,166,92,.28)]" @click="enter">
         {{ t('intro.cta') }}
         <ArrowRight :size="18" />
       </UiButton>

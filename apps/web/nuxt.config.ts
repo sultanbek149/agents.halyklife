@@ -24,6 +24,9 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
+    // Серверный апстрим для прокси /api/gw (обход CORS). Корень шлюза, без /agent.
+    // Переопределяется переменной окружения NUXT_API_UPSTREAM.
+    apiUpstream: 'https://test-gateway.halyklife.kz',
     public: {
       // Базовый URL агент-сервиса (через шлюз: .../agent → /v1/...).
       // Переопределяется переменной окружения NUXT_PUBLIC_API_BASE.
